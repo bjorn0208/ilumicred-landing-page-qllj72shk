@@ -1,0 +1,36 @@
+import { useEffect, useRef, useState } from 'react'
+
+export function useReveal(threshold = 0.15, delay = 0) {
+  const ref = useRef<HTMLDivElement>(null)
+  const [isRevealed, setIsRevealed] = useState(false)
+
+  useEffect(() => {
+    const element = ref.current
+    if (!element) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            setIsRevealed(true)
+          }, delay)
+          observer.unobserve(element)
+        }
+      },
+      {
+        threshold,
+        rootMargin: '0px 0px -50px 0px',
+      },
+    )
+
+    observer.observe(element)
+
+    return () => {
+      if (element) observer.unobserve(element)
+    }
+  }, [threshold, delay])
+
+  const classes = `reveal-hidden ${isRevealed ? 'reveal-visible' : ''}`
+
+  return { ref, isRevealed, classes }
+}
