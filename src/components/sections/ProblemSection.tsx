@@ -30,13 +30,13 @@ function ProblemCard({ prob }: { prob: (typeof problems)[0] }) {
   return (
     <div
       ref={ref}
-      className={`bg-background rounded-2xl p-8 border border-border/50 shadow-subtle hover:shadow-elevation transition-all duration-300 group ${classes}`}
+      className={`bg-secondary rounded-2xl p-8 border-2 border-primary shadow-elevation transition-all duration-300 group ${classes}`}
     >
-      <div className="w-14 h-14 rounded-xl bg-destructive/10 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:-rotate-3 transition-transform">
-        <prob.icon className="w-7 h-7 text-destructive" />
+      <div className="w-16 h-16 rounded-xl bg-white border-2 border-primary flex items-center justify-center mb-6 group-hover:scale-110 group-hover:-rotate-3 transition-transform shadow-sm">
+        <prob.icon className="w-8 h-8 text-primary" />
       </div>
-      <h3 className="text-xl font-bold mb-3">{prob.title}</h3>
-      <p className="text-muted-foreground leading-relaxed">{prob.description}</p>
+      <h3 className="text-2xl font-extrabold mb-3 text-primary">{prob.title}</h3>
+      <p className="text-black font-medium leading-relaxed">{prob.description}</p>
     </div>
   )
 }
@@ -45,15 +45,15 @@ export function ProblemSection() {
   const { ref, classes } = useReveal(0.2)
 
   return (
-    <section id="beneficios" className="py-24 bg-white relative">
+    <section className="py-24 bg-white relative border-y-4 border-primary">
       <div className="container px-4 mx-auto" ref={ref}>
         <div className={`text-center max-w-3xl mx-auto mb-16 ${classes}`}>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Você se identifica com algum destes problemas?
+          <h2 className="text-3xl md:text-5xl font-extrabold mb-6 text-black">
+            Você se identifica com algum destes <span className="text-primary">problemas?</span>
           </h2>
-          <p className="text-muted-foreground text-lg">
-            As restrições financeiras afetam não apenas o seu bolso, mas também a sua paz de
-            espírito. Nós entendemos a sua situação.
+          <p className="text-black font-medium text-xl">
+            As restrições financeiras afetam o seu bolso e a sua paz. Nós entendemos a sua situação
+            e temos a solução legal.
           </p>
         </div>
 

@@ -7,34 +7,41 @@ export function LegalSection() {
   return (
     <section
       id="legalidade"
-      className="py-24 bg-primary text-primary-foreground relative overflow-hidden"
+      className="py-24 bg-white relative overflow-hidden border-y-4 border-secondary"
     >
-      {/* Background graphic */}
-      <Scale className="absolute right-[-10%] top-[-20%] w-[600px] h-[600px] text-white/5 rotate-12 pointer-events-none" />
-
       <div className="container px-4 mx-auto relative z-10" ref={ref}>
-        <div className={`max-w-4xl mx-auto grid md:grid-cols-5 gap-12 items-center ${classes}`}>
-          <div className="md:col-span-2 flex justify-center">
-            <div className="w-full max-w-sm aspect-[3/4] rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 p-8 flex flex-col justify-center items-center text-center shadow-2xl relative">
-              <div className="absolute -top-6 -right-6 w-24 h-24 bg-secondary rounded-full flex items-center justify-center animate-float shadow-xl">
+        <div className={`max-w-5xl mx-auto grid md:grid-cols-5 gap-12 items-center ${classes}`}>
+          <div className="md:col-span-2 flex justify-center relative">
+            <div className="w-full max-w-sm aspect-[3/4] rounded-3xl bg-secondary border-4 border-primary p-8 flex flex-col justify-center items-center text-center shadow-2xl relative z-10">
+              <div className="absolute -top-8 w-24 h-24 bg-white rounded-full flex items-center justify-center animate-float shadow-lg border-4 border-primary">
                 <Scale className="w-10 h-10 text-primary" />
               </div>
-              <h3 className="text-2xl font-bold mb-4">100% Amparado por Lei</h3>
-              <p className="text-white/80 text-sm">
+              <h3 className="text-3xl font-extrabold text-primary mb-4 mt-8">
+                100% Amparado por Lei
+              </h3>
+              <p className="text-black font-bold text-lg">
                 O Código de Defesa do Consumidor garante seus direitos.
               </p>
             </div>
+            {/* Background decorative blob */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-primary/5 rounded-full blur-3xl -z-10"></div>
           </div>
 
           <div className="md:col-span-3">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
-              É legal limpar o nome sem pagar a dívida?
+            <h2 className="text-3xl md:text-5xl font-extrabold mb-8 text-black">
+              É legal limpar o nome <span className="text-primary">sem pagar a dívida?</span>
             </h2>
-            <p className="text-lg text-white/80 mb-8 leading-relaxed">
-              <strong className="text-secondary">Sim.</strong> Nosso trabalho não é "apagar" a
-              dívida com o credor, mas sim anular os apontamentos irregulares nos órgãos de proteção
-              (SPC/Serasa) devido a <strong>falhas de notificação e quebras processuais</strong>.
-            </p>
+            <div className="bg-primary/5 p-6 rounded-2xl border-l-4 border-primary mb-8">
+              <p className="text-xl text-black font-medium leading-relaxed">
+                <strong className="text-primary font-extrabold">Sim.</strong> Nosso trabalho não é
+                "apagar" a dívida com o credor, mas sim anular os apontamentos irregulares nos
+                órgãos de proteção (SPC/Serasa) devido a{' '}
+                <strong className="font-extrabold bg-secondary px-2">
+                  falhas de notificação e quebras processuais
+                </strong>
+                .
+              </p>
+            </div>
 
             <ul className="space-y-4">
               {[
@@ -45,10 +52,10 @@ export function LegalSection() {
               ].map((item, idx) => (
                 <li
                   key={idx}
-                  className="flex items-start gap-3 bg-white/5 p-4 rounded-lg border border-white/10"
+                  className="flex items-start gap-4 bg-white p-5 rounded-xl border-2 border-secondary shadow-sm hover:shadow-md transition-shadow"
                 >
-                  <CheckCircle2 className="w-6 h-6 text-secondary shrink-0" />
-                  <span className="text-sm md:text-base font-medium text-white/90">{item}</span>
+                  <CheckCircle2 className="w-8 h-8 text-primary shrink-0" />
+                  <span className="text-base font-bold text-black">{item}</span>
                 </li>
               ))}
             </ul>

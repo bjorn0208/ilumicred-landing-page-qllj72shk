@@ -6,35 +6,41 @@
 
 @layer base {
   :root {
-    --background: 210 33% 98%; /* #F8FAFC */
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    /* Strict Color Palette: White (#FFFFFF), Black (#000000), Blue, Yellow */
+    --background: 0 0% 100%; /* White */
+    --foreground: 0 0% 0%; /* Black strictly for text */
+
+    --card: 0 0% 100%; /* White */
+    --card-foreground: 0 0% 0%; /* Black */
+
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 0 0% 0%;
 
-    /* Deep Navy Blue (#0047AB) */
+    /* Primary: Blue */
     --primary: 215 100% 33%;
-    --primary-foreground: 210 40% 98%;
+    --primary-foreground: 0 0% 100%;
 
-    /* Gold/Amber (#FBBF24) */
-    --secondary: 43 96% 56%;
-    --secondary-foreground: 222.2 84% 4.9%;
+    /* Secondary/Accent: Yellow */
+    --secondary: 48 100% 50%;
+    --secondary-foreground: 0 0% 0%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 43 96% 56%;
-    --accent-foreground: 222.2 84% 4.9%;
+    /* Muted: keeping it white/black for strictness */
+    --muted: 0 0% 100%;
+    --muted-foreground: 0 0% 0%;
+
+    --accent: 48 100% 50%;
+    --accent-foreground: 0 0% 0%;
+
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
+    /* Borders in Blue or Yellow to fit palette */
+    --border: 215 100% 33%;
+    --input: 215 100% 33%;
     --ring: 215 100% 33%;
 
     --radius: 0.5rem;
-
-    --success: 160 84% 39%; /* Emerald */
+    --success: 160 84% 39%;
   }
 
   html {
@@ -51,33 +57,32 @@
   h4,
   h5,
   h6 {
-    @apply font-display tracking-tight;
+    @apply font-display tracking-tight text-primary;
   }
 }
 
 @layer utilities {
   .glass-panel {
-    @apply bg-white/70 backdrop-blur-md border border-white/20 shadow-elevation;
+    @apply bg-white/90 backdrop-blur-md border border-primary/20 shadow-elevation;
   }
 
   .glass-nav {
-    @apply bg-background/80 backdrop-blur-lg border-b border-border/50;
+    @apply bg-white/95 backdrop-blur-lg border-b border-primary/20 shadow-sm;
   }
 
   .text-glow {
-    text-shadow: 0 0 20px rgba(251, 191, 36, 0.4);
+    text-shadow: 0 0 20px rgba(255, 204, 0, 0.6);
   }
 
   .btn-glow {
-    box-shadow: 0 0 15px -3px rgba(251, 191, 36, 0.5);
+    box-shadow: 0 0 15px -3px rgba(255, 204, 0, 0.6);
     transition: box-shadow 0.3s ease;
   }
 
   .btn-glow:hover {
-    box-shadow: 0 0 25px 0px rgba(251, 191, 36, 0.7);
+    box-shadow: 0 0 25px 0px rgba(255, 204, 0, 0.8);
   }
 
-  /* Reveal Animations */
   .reveal-hidden {
     @apply opacity-0 translate-y-8 transition-all duration-700 ease-out;
   }
@@ -86,27 +91,18 @@
     @apply opacity-100 translate-y-0;
   }
 
-  @keyframes progress-grow {
-    from {
-      transform: scaleX(0);
-    }
-    to {
-      transform: scaleX(1);
-    }
-  }
-
   @keyframes pulse-ring {
     0% {
       transform: scale(0.95);
-      box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.7);
+      box-shadow: 0 0 0 0 rgba(255, 204, 0, 0.7);
     }
     70% {
       transform: scale(1);
-      box-shadow: 0 0 0 10px rgba(251, 191, 36, 0);
+      box-shadow: 0 0 0 10px rgba(255, 204, 0, 0);
     }
     100% {
       transform: scale(0.95);
-      box-shadow: 0 0 0 0 rgba(251, 191, 36, 0);
+      box-shadow: 0 0 0 0 rgba(255, 204, 0, 0);
     }
   }
 

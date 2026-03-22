@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useReveal } from '@/hooks/use-reveal'
 import { ScoreMeter } from '@/components/ScoreMeter'
 import { Switch } from '@/components/ui/switch'
@@ -17,7 +17,7 @@ const testimonials = [
   {
     name: 'Carlos M.',
     role: 'Empresário',
-    text: 'Graças a Ilumicred consegui limpar meu nome em 20 dias e finalmente financiar meu carro novo.',
+    text: 'Limpei meu nome em 20 dias e finalmente financiei meu carro novo. Recomendo muito!',
     rating: 5,
     gender: 'male',
     seed: 1,
@@ -33,7 +33,7 @@ const testimonials = [
   {
     name: 'Roberto F.',
     role: 'Servidor Público',
-    text: 'Excelente atendimento. Me explicaram tudo sobre a lei e resolveram meu problema.',
+    text: 'Excelente atendimento do Dominic. Explicaram tudo sobre a lei e resolveram.',
     rating: 5,
     gender: 'male',
     seed: 3,
@@ -41,7 +41,7 @@ const testimonials = [
   {
     name: 'Juliana T.',
     role: 'Comerciante',
-    text: 'Consegui capital de giro para minha loja após a reabilitação do meu CPF. Gratidão!',
+    text: 'Consegui capital de giro para minha loja após a reabilitação. Gratidão!',
     rating: 5,
     gender: 'female',
     seed: 4,
@@ -53,23 +53,23 @@ export function SocialProofSection() {
   const [isAfter, setIsAfter] = useState(false)
   const [score, setScore] = useState(250)
 
-  // When toggle changes, update score to trigger animation
   const handleToggle = (checked: boolean) => {
     setIsAfter(checked)
     setScore(checked ? 850 : 250)
   }
 
   return (
-    <section className="py-24 bg-white overflow-hidden">
+    <section id="depoimentos" className="py-24 bg-white border-t-4 border-primary">
       <div className="container px-4 mx-auto" ref={ref}>
         <div className={`grid lg:grid-cols-2 gap-16 items-center ${classes}`}>
-          {/* Before / After Interactive */}
-          <div className="flex flex-col items-center bg-background rounded-3xl p-10 border border-border shadow-sm">
-            <h3 className="text-2xl font-bold mb-8 text-center">A transformação do seu CPF</h3>
+          <div className="flex flex-col items-center bg-white rounded-3xl p-10 border-4 border-secondary shadow-xl relative">
+            <div className="absolute -top-5 bg-primary text-white font-bold px-6 py-2 rounded-full border-2 border-white shadow-md">
+              A transformação do seu CPF
+            </div>
 
-            <div className="flex items-center gap-4 mb-10 bg-white p-2 rounded-full border shadow-sm">
+            <div className="flex items-center gap-4 mt-8 mb-10 bg-white p-3 rounded-full border-2 border-primary shadow-sm">
               <span
-                className={`text-sm font-semibold px-3 ${!isAfter ? 'text-destructive' : 'text-muted-foreground'}`}
+                className={`text-sm font-extrabold px-3 ${!isAfter ? 'text-destructive' : 'text-black/40'}`}
               >
                 Antes
               </span>
@@ -79,7 +79,7 @@ export function SocialProofSection() {
                 className="data-[state=checked]:bg-success data-[state=unchecked]:bg-destructive"
               />
               <span
-                className={`text-sm font-semibold px-3 ${isAfter ? 'text-success' : 'text-muted-foreground'}`}
+                className={`text-sm font-extrabold px-3 ${isAfter ? 'text-success' : 'text-black/40'}`}
               >
                 Depois da Ilumicred
               </span>
@@ -88,19 +88,16 @@ export function SocialProofSection() {
             <div className="h-48 flex items-center justify-center w-full">
               <ScoreMeter score={score} />
             </div>
-
-            <p className="text-center text-sm text-muted-foreground mt-6">
-              * Resultados reais baseados na média de nossos clientes após a limpeza de
-              apontamentos.
+            <p className="text-center text-sm font-bold text-black mt-6">
+              * Resultados reais baseados na média de clientes.
             </p>
           </div>
 
-          {/* Testimonials */}
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Aprovado por milhares de brasileiros
+            <h2 className="text-3xl md:text-5xl font-extrabold mb-6 text-black">
+              Aprovado por milhares de <span className="text-primary">brasileiros</span>
             </h2>
-            <p className="text-muted-foreground text-lg mb-10">
+            <p className="text-black font-medium text-xl mb-10">
               Não acredite apenas em nossas palavras. Veja o que quem já recuperou o poder de compra
               tem a dizer.
             </p>
@@ -113,24 +110,24 @@ export function SocialProofSection() {
               >
                 <CarouselContent className="-ml-4">
                   {testimonials.map((t, idx) => (
-                    <CarouselItem key={idx} className="pl-4 md:basis-1/2">
-                      <Card className="border-none shadow-elevation h-full">
-                        <CardContent className="p-6">
-                          <div className="flex gap-1 mb-4">
+                    <CarouselItem key={idx} className="pl-4 md:basis-full lg:basis-full">
+                      <Card className="bg-secondary border-2 border-primary shadow-lg h-full rounded-2xl">
+                        <CardContent className="p-8">
+                          <div className="flex gap-1 mb-4 bg-white inline-flex p-2 rounded-lg border border-primary/20">
                             {[...Array(t.rating)].map((_, i) => (
-                              <Star key={i} className="w-4 h-4 fill-secondary text-secondary" />
+                              <Star key={i} className="w-5 h-5 fill-primary text-primary" />
                             ))}
                           </div>
-                          <p className="text-muted-foreground text-sm italic mb-6">"{t.text}"</p>
-                          <div className="flex items-center gap-3">
+                          <p className="text-black font-bold text-lg italic mb-8">"{t.text}"</p>
+                          <div className="flex items-center gap-4">
                             <img
                               src={`https://img.usecurling.com/ppl/thumbnail?gender=${t.gender}&seed=${t.seed}`}
                               alt={t.name}
-                              className="w-10 h-10 rounded-full object-cover"
+                              className="w-14 h-14 rounded-full object-cover border-2 border-primary"
                             />
                             <div>
-                              <div className="font-bold text-sm">{t.name}</div>
-                              <div className="text-xs text-muted-foreground">{t.role}</div>
+                              <div className="font-extrabold text-primary text-lg">{t.name}</div>
+                              <div className="text-sm font-bold text-black/70">{t.role}</div>
                             </div>
                           </div>
                         </CardContent>
@@ -138,9 +135,9 @@ export function SocialProofSection() {
                     </CarouselItem>
                   ))}
                 </CarouselContent>
-                <div className="hidden md:block">
-                  <CarouselPrevious className="-left-4 bg-white border shadow-sm" />
-                  <CarouselNext className="-right-4 bg-white border shadow-sm" />
+                <div className="hidden md:flex gap-2 mt-6 justify-end">
+                  <CarouselPrevious className="static translate-y-0 bg-white border-2 border-primary shadow-sm hover:bg-secondary text-primary" />
+                  <CarouselNext className="static translate-y-0 bg-white border-2 border-primary shadow-sm hover:bg-secondary text-primary" />
                 </div>
               </Carousel>
             </div>

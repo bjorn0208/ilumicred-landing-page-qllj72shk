@@ -2,10 +2,9 @@ import { cn } from '@/lib/utils'
 
 interface LogoProps {
   className?: string
-  light?: boolean
 }
 
-export function Logo({ className, light = false }: LogoProps) {
+export function Logo({ className }: LogoProps) {
   return (
     <div
       className={cn(
@@ -14,13 +13,12 @@ export function Logo({ className, light = false }: LogoProps) {
       )}
     >
       <div className="relative flex items-end justify-center h-8 mb-1">
-        {/* Book / Shield Shape */}
         <svg
           viewBox="0 0 100 80"
-          className={cn('w-12 h-10', light ? 'text-white' : 'text-primary')}
+          className="w-12 h-10 text-primary"
           fill="none"
           stroke="currentColor"
-          strokeWidth="6"
+          strokeWidth="8"
           strokeLinecap="round"
           strokeLinejoin="round"
         >
@@ -28,22 +26,19 @@ export function Logo({ className, light = false }: LogoProps) {
           <path d="M10,40 L50,65 L90,40" />
           <path d="M10,15 L50,40 L90,15" />
           <line x1="50" y1="40" x2="50" y2="65" />
-          {/* Lightbulb Accent */}
           <circle
             cx="50"
             cy="15"
-            r="4"
+            r="5"
             fill="currentColor"
             className="text-secondary"
             stroke="none"
           />
-          <path d="M46,6 Q50,0 54,6" className="text-secondary" strokeWidth="3" />
+          <path d="M46,4 Q50,-2 54,4" className="text-secondary" strokeWidth="4" />
         </svg>
       </div>
-      <div
-        className={cn('text-xl font-bold tracking-widest', light ? 'text-white' : 'text-primary')}
-      >
-        ILUM<span className="text-secondary">I</span>CRED
+      <div className="text-2xl font-extrabold tracking-widest text-primary">
+        ILUM<span className="text-secondary bg-primary px-1 rounded-sm mx-[2px]">I</span>CRED
       </div>
     </div>
   )
