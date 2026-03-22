@@ -25,6 +25,22 @@ const problems = [
   },
 ]
 
+function ProblemCard({ prob }: { prob: (typeof problems)[0] }) {
+  const { ref, classes } = useReveal(0.1, prob.delay)
+  return (
+    <div
+      ref={ref}
+      className={`bg-background rounded-2xl p-8 border border-border/50 shadow-subtle hover:shadow-elevation transition-all duration-300 group ${classes}`}
+    >
+      <div className="w-14 h-14 rounded-xl bg-destructive/10 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:-rotate-3 transition-transform">
+        <prob.icon className="w-7 h-7 text-destructive" />
+      </div>
+      <h3 className="text-xl font-bold mb-3">{prob.title}</h3>
+      <p className="text-muted-foreground leading-relaxed">{prob.description}</p>
+    </div>
+  )
+}
+
 export function ProblemSection() {
   const { ref, classes } = useReveal(0.2)
 
@@ -42,22 +58,9 @@ export function ProblemSection() {
         </div>
 
         <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-          {problems.map((prob, idx) => {
-            const { ref: cardRef, classes: cardClasses } = useReveal(0.1, prob.delay)
-            return (
-              <div
-                key={idx}
-                ref={cardRef}
-                className={`bg-background rounded-2xl p-8 border border-border/50 shadow-subtle hover:shadow-elevation transition-all duration-300 group ${cardClasses}`}
-              >
-                <div className="w-14 h-14 rounded-xl bg-destructive/10 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:-rotate-3 transition-transform">
-                  <prob.icon className="w-7 h-7 text-destructive" />
-                </div>
-                <h3 className="text-xl font-bold mb-3">{prob.title}</h3>
-                <p className="text-muted-foreground leading-relaxed">{prob.description}</p>
-              </div>
-            )
-          })}
+          {problems.map((prob, idx) => (
+            <ProblemCard key={idx} prob={prob} />
+          ))}
         </div>
       </div>
     </section>

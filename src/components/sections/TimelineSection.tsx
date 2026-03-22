@@ -30,6 +30,44 @@ const steps = [
   },
 ]
 
+function TimelineStep({
+  step,
+  idx,
+  total,
+}: {
+  step: (typeof steps)[0]
+  idx: number
+  total: number
+}) {
+  const { ref, classes } = useReveal(0.5, idx * 100)
+  return (
+    <div
+      ref={ref}
+      className={cn(
+        'relative flex md:flex-col items-start md:items-center gap-6 md:gap-4 group',
+        classes,
+      )}
+    >
+      {/* Mobile vertical line */}
+      {idx !== total - 1 && (
+        <div className="absolute left-[27px] top-[60px] w-0.5 h-[calc(100%+16px)] bg-border md:hidden" />
+      )}
+
+      <div className="w-14 h-14 rounded-full bg-white border-4 border-background shadow-md flex items-center justify-center shrink-0 group-hover:border-primary group-hover:bg-primary/5 transition-colors z-10">
+        <step.icon className="w-6 h-6 text-primary" />
+      </div>
+
+      <div className="md:text-center mt-1 md:mt-2">
+        <div className="text-xs font-bold text-secondary mb-1">PASSO {idx + 1}</div>
+        <h4 className="text-lg font-bold mb-2">{step.title}</h4>
+        <p className="text-sm text-muted-foreground md:max-w-[150px] leading-relaxed">
+          {step.desc}
+        </p>
+      </div>
+    </div>
+  )
+}
+
 export function TimelineSection() {
   const { ref, classes } = useReveal()
 
@@ -51,36 +89,9 @@ export function TimelineSection() {
           </div>
 
           <div className="flex flex-col md:flex-row justify-between gap-12 md:gap-4 relative z-10">
-            {steps.map((step, idx) => {
-              const { ref: stepRef, classes: stepClasses } = useReveal(0.5, idx * 100)
-              return (
-                <div
-                  key={idx}
-                  ref={stepRef}
-                  className={cn(
-                    'relative flex md:flex-col items-start md:items-center gap-6 md:gap-4 group',
-                    stepClasses,
-                  )}
-                >
-                  {/* Mobile vertical line */}
-                  {idx !== steps.length - 1 && (
-                    <div className="absolute left-[27px] top-[60px] w-0.5 h-[calc(100%+16px)] bg-border md:hidden" />
-                  )}
-
-                  <div className="w-14 h-14 rounded-full bg-white border-4 border-background shadow-md flex items-center justify-center shrink-0 group-hover:border-primary group-hover:bg-primary/5 transition-colors z-10">
-                    <step.icon className="w-6 h-6 text-primary" />
-                  </div>
-
-                  <div className="md:text-center mt-1 md:mt-2">
-                    <div className="text-xs font-bold text-secondary mb-1">PASSO {idx + 1}</div>
-                    <h4 className="text-lg font-bold mb-2">{step.title}</h4>
-                    <p className="text-sm text-muted-foreground md:max-w-[150px] leading-relaxed">
-                      {step.desc}
-                    </p>
-                  </div>
-                </div>
-              )
-            })}
+            {steps.map((step, idx) => (
+              <TimelineStep key={idx} step={step} idx={idx} total={steps.length} />
+            ))}
           </div>
         </div>
       </div>
