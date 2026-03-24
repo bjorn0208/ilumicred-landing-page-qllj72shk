@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react'
 import { Outlet, Link } from 'react-router-dom'
-import { Menu, X, ShieldCheck } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { Menu, X } from 'lucide-react'
+import { CustomCursor } from '@/components/CustomCursor'
+import { AuroraBackground } from '@/components/AuroraBackground'
+import { Marquee } from '@/components/Marquee'
 import { Logo } from '@/components/Logo'
 import { Chatbot } from '@/components/Chatbot'
 import { cn } from '@/lib/utils'
+import { MagneticButton } from '@/components/MagneticButton'
 
 export default function Layout() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -15,7 +18,7 @@ export default function Layout() {
   const [wordIndex, setWordIndex] = useState(0)
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20)
+    const handleScroll = () => setIsScrolled(window.scrollY > 50)
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
@@ -31,81 +34,91 @@ export default function Layout() {
     { label: 'Início', href: '#' },
     { label: 'Como funciona', href: '#como-funciona' },
     { label: 'Depoimentos', href: '#depoimentos' },
-    { label: 'Contato', href: '#consulta' },
+    { label: 'Dúvidas', href: '#faq' },
   ]
 
   return (
-    <div className="flex flex-col min-h-screen relative bg-white">
-      <header
-        className={cn(
-          'fixed top-0 w-full z-50 transition-all duration-300',
-          isScrolled ? 'glass-nav py-3' : 'bg-white py-5 border-b border-primary/10',
-        )}
-      >
-        <div className="container mx-auto px-4 flex items-center justify-between">
-          <div className="flex items-center gap-6">
-            <Link to="/" className="flex items-center gap-2">
-              <Logo className="scale-75 origin-left" />
-            </Link>
+    <div className="flex flex-col min-h-screen relative selection:bg-primary/30 selection:text-white">
+      <CustomCursor />
+      <AuroraBackground />
 
-            {/* Dynamic Rotating Text - Desktop Only */}
-            <div className="hidden lg:flex items-center text-sm font-bold text-black border-l-2 border-secondary pl-6">
-              Limpe seu nome de forma
-              <div className="relative w-[85px] h-6 ml-1 overflow-hidden">
-                {dynamicWords.map((word, i) => (
-                  <span
-                    key={word}
-                    className={cn(
-                      'absolute left-0 top-0 text-primary transition-all duration-500',
-                      i === wordIndex ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4',
-                    )}
-                  >
-                    {word}
-                  </span>
-                ))}
+      <div className="fixed top-0 w-full z-50">
+        <Marquee />
+        <header
+          className={cn(
+            'w-full transition-all duration-500 ease-out border-b border-transparent',
+            isScrolled ? 'glass-nav py-3' : 'bg-transparent py-5',
+          )}
+        >
+          <div className="container mx-auto px-4 md:px-8 flex items-center justify-between">
+            <div className="flex items-center gap-6">
+              <Link to="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+                <Logo />
+              </Link>
+
+              {/* Dynamic Rotating Text - Desktop Only */}
+              <div className="hidden lg:flex items-center text-sm font-medium text-white/70 border-l border-white/20 pl-6">
+                Recuperação de crédito de forma
+                <div className="relative w-[85px] h-5 ml-1 overflow-hidden font-bold text-primary">
+                  {dynamicWords.map((word, i) => (
+                    <span
+                      key={word}
+                      className={cn(
+                        'absolute left-1 top-0 transition-all duration-500 ease-out',
+                        i === wordIndex ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4',
+                      )}
+                    >
+                      {word}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
+
+            {/* Desktop Nav */}
+            <nav className="hidden md:flex items-center gap-8">
+              <ul className="flex items-center gap-8">
+                {navLinks.map((link) => (
+                  <li key={link.href}>
+                    <a
+                      href={link.href}
+                      className="text-sm font-medium text-white/80 hover:text-white transition-colors relative group"
+                    >
+                      {link.label}
+                      <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-primary transition-all duration-300 group-hover:w-full" />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+              <a href="#consulta">
+                <MagneticButton className="px-6 py-2.5 rounded-full bg-white/10 border border-white/20 text-white font-semibold hover:bg-white/20 hover:border-primary/50 backdrop-blur-md transition-all text-sm">
+                  Consultar CPF
+                </MagneticButton>
+              </a>
+            </nav>
+
+            {/* Mobile Menu Toggle */}
+            <button
+              className="md:hidden p-2 text-white hover:text-primary transition-colors"
+              onClick={() => setMobileMenuOpen(true)}
+            >
+              <Menu className="w-7 h-7" />
+            </button>
           </div>
-
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-8">
-            <ul className="flex items-center gap-6">
-              {navLinks.map((link) => (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
-                    className="text-sm font-bold text-black hover:text-primary transition-colors"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-            <a href="#consulta">
-              <Button className="btn-glow font-bold shadow-md text-black bg-secondary hover:bg-secondary/90">
-                Consultar CPF
-              </Button>
-            </a>
-          </nav>
-
-          {/* Mobile Menu Toggle */}
-          <button className="md:hidden p-2 text-primary" onClick={() => setMobileMenuOpen(true)}>
-            <Menu className="w-8 h-8" />
-          </button>
-        </div>
-      </header>
+        </header>
+      </div>
 
       {/* Slide-out Sidebar Navigation */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-[60] bg-black/40 backdrop-blur-sm animate-in fade-in md:hidden">
-          <div className="absolute right-0 top-0 bottom-0 w-[280px] bg-white border-l border-primary shadow-2xl flex flex-col p-6 animate-in slide-in-from-right duration-300">
-            <div className="flex justify-between items-center mb-10 border-b border-primary/20 pb-4">
-              <Logo className="scale-75 origin-left" />
+        <div className="fixed inset-0 z-[60] bg-background/80 backdrop-blur-xl animate-in fade-in duration-300 md:hidden flex justify-end">
+          <div className="w-[80%] max-w-[320px] h-full bg-[#111] border-l border-white/10 shadow-2xl flex flex-col p-8 animate-in slide-in-from-right duration-300">
+            <div className="flex justify-between items-center mb-12 border-b border-white/10 pb-6">
+              <Logo className="scale-90 origin-left" />
               <button
                 onClick={() => setMobileMenuOpen(false)}
-                className="p-2 text-black hover:text-primary bg-secondary/20 rounded-full"
+                className="p-2 text-white/70 hover:text-white bg-white/5 rounded-full transition-colors"
               >
-                <X className="w-6 h-6" />
+                <X className="w-5 h-5" />
               </button>
             </div>
             <nav className="flex flex-col gap-6 flex-1">
@@ -114,40 +127,42 @@ export default function Layout() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="text-xl font-bold text-black border-b border-primary/10 pb-2"
+                  className="text-2xl font-display font-bold text-white/90 hover:text-primary transition-colors"
                 >
                   {link.label}
                 </a>
               ))}
             </nav>
-            <div className="mt-auto pt-6">
+            <div className="mt-auto pt-8 border-t border-white/10">
               <a href="#consulta" onClick={() => setMobileMenuOpen(false)}>
-                <Button className="w-full h-14 text-lg text-black bg-secondary font-bold">
-                  Consultar CPF
-                </Button>
+                <button className="w-full py-4 rounded-xl bg-primary text-white font-bold text-lg hover:bg-primary/90 transition-colors neon-glow">
+                  Iniciar Análise
+                </button>
               </a>
             </div>
           </div>
         </div>
       )}
 
-      <main className="flex-1 flex flex-col w-full overflow-hidden pt-[80px]">
+      <main className="flex-1 flex flex-col w-full pt-[120px]">
         <Outlet />
       </main>
 
-      <footer className="bg-white border-t-4 border-secondary pt-16 pb-8 text-black">
+      <footer className="border-t border-white/10 pt-20 pb-10 mt-20 relative overflow-hidden">
+        <div className="absolute inset-0 bg-primary/5 -z-10" />
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-4 gap-8 mb-12">
-            <div className="col-span-1 md:col-span-2">
+          <div className="grid md:grid-cols-2 gap-12 mb-16">
+            <div>
               <Logo className="mb-6 scale-90 origin-left" />
-              <p className="text-black font-medium text-sm max-w-md leading-relaxed">
+              <p className="text-white/60 font-medium text-sm max-w-md leading-relaxed">
                 A Ilumicred Soluções atua de forma administrativa para garantir seus direitos
-                baseados no Código de Defesa do Consumidor.
+                baseados no Código de Defesa do Consumidor, promovendo sua liberdade financeira de
+                forma 100% legal.
               </p>
             </div>
-            <div>
-              <h4 className="font-bold text-lg mb-4 text-primary">Links Úteis</h4>
-              <ul className="space-y-2 text-sm font-medium text-black">
+            <div className="flex flex-col items-start md:items-end text-left md:text-right">
+              <h4 className="font-display font-bold text-xl mb-6 text-white">Navegação</h4>
+              <ul className="space-y-3 text-sm font-medium text-white/70">
                 {navLinks.map((link) => (
                   <li key={link.href}>
                     <a href={link.href} className="hover:text-primary transition-colors">
@@ -157,23 +172,12 @@ export default function Layout() {
                 ))}
               </ul>
             </div>
-            <div>
-              <h4 className="font-bold text-lg mb-4 text-primary">Segurança</h4>
-              <div className="flex flex-col gap-3">
-                <div className="flex items-center gap-2 text-black bg-secondary/10 p-3 rounded-lg border border-secondary">
-                  <ShieldCheck className="w-5 h-5 text-primary" />
-                  <span className="text-sm font-bold">Ambiente 100% Seguro</span>
-                </div>
-                <div className="flex items-center gap-2 text-black bg-secondary/10 p-3 rounded-lg border border-secondary">
-                  <ShieldCheck className="w-5 h-5 text-primary" />
-                  <span className="text-sm font-bold">Amparado pelo CDC</span>
-                </div>
-              </div>
-            </div>
           </div>
-          <div className="border-t border-primary/20 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-bold text-black">
-            <p>© {new Date().getFullYear()} Ilumicred Soluções. Todos os direitos reservados.</p>
-            <p>CNPJ: 00.000.000/0001-00</p>
+          <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-medium text-white/40">
+            <p>
+              © {new Date().getFullYear()} ILUMICRED SOLUÇÕES LTDA. Todos os direitos reservados.
+            </p>
+            <p>CNPJ: 50.584.948/0001-00</p>
           </div>
         </div>
       </footer>

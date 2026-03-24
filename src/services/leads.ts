@@ -4,6 +4,8 @@ export interface CreateLeadPayload {
   name: string
   cpf: string
   phone: string
+  debt_range?: string
+  time_negativated?: string
   source?: string
 }
 

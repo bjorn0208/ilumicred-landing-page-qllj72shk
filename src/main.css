@@ -1,54 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@600;700;800&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-  :root {
-    /* Strict Color Palette: White (#FFFFFF), Black (#000000), Blue, Yellow */
-    --background: 0 0% 100%; /* White */
-    --foreground: 0 0% 0%; /* Black strictly for text */
-
-    --card: 0 0% 100%; /* White */
-    --card-foreground: 0 0% 0%; /* Black */
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 0%;
-
-    /* Primary: Blue */
-    --primary: 215 100% 33%;
-    --primary-foreground: 0 0% 100%;
-
-    /* Secondary/Accent: Yellow */
-    --secondary: 48 100% 50%;
-    --secondary-foreground: 0 0% 0%;
-
-    /* Muted: keeping it white/black for strictness */
-    --muted: 0 0% 100%;
-    --muted-foreground: 0 0% 0%;
-
-    --accent: 48 100% 50%;
-    --accent-foreground: 0 0% 0%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 100%;
-
-    /* Borders in Blue or Yellow to fit palette */
-    --border: 215 100% 33%;
-    --input: 215 100% 33%;
-    --ring: 215 100% 33%;
-
-    --radius: 0.5rem;
-    --success: 160 84% 39%;
-  }
-
   html {
     scroll-behavior: smooth;
   }
 
   body {
-    @apply font-sans antialiased text-foreground bg-background;
+    @apply font-sans antialiased text-foreground bg-background overflow-x-hidden;
+    /* Hide default cursor on desktop to use custom cursor */
+    @media (pointer: fine) {
+      cursor: none;
+    }
   }
 
   h1,
@@ -57,57 +21,62 @@
   h4,
   h5,
   h6 {
-    @apply font-display tracking-tight text-primary;
+    @apply font-display tracking-tight text-white;
   }
 }
 
 @layer utilities {
   .glass-panel {
-    @apply bg-white/90 backdrop-blur-md border border-primary/20 shadow-elevation;
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 shadow-2xl;
   }
 
   .glass-nav {
-    @apply bg-white/95 backdrop-blur-lg border-b border-primary/20 shadow-sm;
+    @apply bg-black/40 backdrop-blur-xl border-b border-white/10 shadow-lg;
   }
 
   .text-glow {
-    text-shadow: 0 0 20px rgba(255, 204, 0, 0.6);
+    text-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
   }
 
-  .btn-glow {
-    box-shadow: 0 0 15px -3px rgba(255, 204, 0, 0.6);
-    transition: box-shadow 0.3s ease;
-  }
-
-  .btn-glow:hover {
-    box-shadow: 0 0 25px 0px rgba(255, 204, 0, 0.8);
+  .neon-glow {
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.4);
   }
 
   .reveal-hidden {
-    @apply opacity-0 translate-y-8 transition-all duration-700 ease-out;
+    @apply opacity-0 translate-y-12 scale-95 transition-all duration-1000 ease-out;
   }
 
   .reveal-visible {
-    @apply opacity-100 translate-y-0;
+    @apply opacity-100 translate-y-0 scale-100;
+  }
+
+  .delay-100 {
+    transition-delay: 100ms;
+  }
+  .delay-200 {
+    transition-delay: 200ms;
+  }
+  .delay-300 {
+    transition-delay: 300ms;
   }
 
   @keyframes pulse-ring {
     0% {
       transform: scale(0.95);
-      box-shadow: 0 0 0 0 rgba(255, 204, 0, 0.7);
+      box-shadow: 0 0 0 0 rgba(138, 43, 226, 0.5);
     }
     70% {
       transform: scale(1);
-      box-shadow: 0 0 0 10px rgba(255, 204, 0, 0);
+      box-shadow: 0 0 0 15px rgba(138, 43, 226, 0);
     }
     100% {
       transform: scale(0.95);
-      box-shadow: 0 0 0 0 rgba(255, 204, 0, 0);
+      box-shadow: 0 0 0 0 rgba(138, 43, 226, 0);
     }
   }
 
   .animate-pulse-ring {
-    animation: pulse-ring 2s infinite;
+    animation: pulse-ring 2.5s infinite;
   }
 
   @keyframes shake {
@@ -115,22 +84,32 @@
     100% {
       transform: translateX(0);
     }
-    10%,
-    30%,
-    50%,
-    70%,
-    90% {
-      transform: translateX(-4px);
-    }
     20%,
+    60% {
+      transform: translateX(-5px);
+    }
     40%,
-    60%,
     80% {
-      transform: translateX(4px);
+      transform: translateX(5px);
     }
   }
 
   .animate-shake {
-    animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+    animation: shake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  }
+
+  @keyframes confetti-pop {
+    0% {
+      transform: translate(-50%, -50%) rotate(0deg) scale(0);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(var(--tx), var(--ty)) rotate(720deg) scale(1.2);
+      opacity: 0;
+    }
+  }
+
+  .animate-confetti {
+    animation: confetti-pop 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
   }
 }

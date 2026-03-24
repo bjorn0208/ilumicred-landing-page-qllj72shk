@@ -9,23 +9,19 @@ import {
 const faqs = [
   {
     q: 'O processo é realmente legal?',
-    a: 'Sim. Trabalhamos fundamentados no Código de Defesa do Consumidor (Art. 42 e 43). O processo foca na anulação das restrições devido a irregularidades nas notificações ou prazos prescritos, de forma 100% legal e administrativa.',
+    a: 'Sim. Trabalhamos estritamente dentro da lei, fundamentados no Código de Defesa do Consumidor (Art. 42 e 43). Atuamos na quebra processual por falta de notificação prévia (Aviso de Recebimento), exigindo a baixa administrativa dos apontamentos.',
   },
   {
     q: 'Quanto tempo demora para o nome ficar limpo?',
-    a: 'Em média, nossos clientes têm seus CPFs reabilitados nos órgãos de proteção ao crédito em até 15 a 45 dias úteis após o início do processo.',
+    a: 'O prazo legal administrativo é de 15 a 45 dias úteis para que Serasa, Boa Vista e SPC retirem as restrições do sistema visível.',
   },
   {
     q: 'A dívida com o credor desaparece?',
-    a: 'Não. A dívida original permanece com a instituição financeira. O que desaparece é a negativação pública (SPC/Serasa/Boa Vista), o que permite que seu Score volte a subir.',
+    a: 'Não prometemos o perdão da dívida. A dívida original permanece com o banco/credor. Nosso serviço remove a publicidade dessa dívida (a negativação no CPF), permitindo que seu score volte a subir e você volte a ter crédito.',
   },
   {
-    q: 'Meu score vai voltar a subir?',
-    a: 'Sim! Com a remoção dos apontamentos negativos que puxam sua pontuação para baixo, o sistema entenderá que você não tem mais restrições ativas e seu score começará a se recuperar entre 7 a 15 dias.',
-  },
-  {
-    q: 'A avaliação inicial tem algum custo?',
-    a: 'Não, a nossa análise de viabilidade do seu CPF é totalmente gratuita. Só apresentamos uma proposta caso seu perfil se enquadre nos requisitos.',
+    q: 'E se o apontamento voltar?',
+    a: 'Oferecemos garantia em contrato. Se o mesmo apontamento voltar a negativar seu CPF devido a processos refeitos pelo banco de forma incorreta dentro do período coberto, nós refazemos o procedimento sem custo adicional.',
   },
 ]
 
@@ -33,35 +29,30 @@ export function FAQSection() {
   const { ref, classes } = useReveal()
 
   return (
-    <section id="faq" className="py-24 bg-white border-t-4 border-secondary">
-      <div className="container px-4 mx-auto max-w-4xl" ref={ref}>
-        <div className={`text-center mb-16 ${classes}`}>
-          <h2 className="text-3xl md:text-5xl font-extrabold text-black mb-6">
-            Dúvidas Frequentes
+    <section id="faq" className="py-24 relative z-10">
+      <div className="container px-4 mx-auto max-w-3xl" ref={ref}>
+        <div className={`text-center mb-12 ${classes}`}>
+          <h2 className="text-3xl md:text-5xl font-display font-bold text-white mb-6">
+            Perguntas Frequentes
           </h2>
-          <p className="text-black font-medium text-xl bg-secondary/20 inline-block px-6 py-2 rounded-full border border-secondary">
-            Respondemos as principais perguntas sobre a reabilitação de crédito.
-          </p>
         </div>
 
         <Accordion
           type="single"
           collapsible
-          className={`w-full bg-white border-4 border-primary rounded-2xl p-6 md:p-8 shadow-xl ${classes}`}
+          className={`w-full glass-panel rounded-3xl p-6 md:p-10 ${classes} delay-200`}
         >
           {faqs.map((faq, index) => (
             <AccordionItem
               key={index}
               value={`item-${index}`}
-              className="border-b-2 border-primary/20 py-2 last:border-0"
+              className="border-b border-white/10 py-2 last:border-0"
             >
-              <AccordionTrigger className="text-left text-xl font-extrabold text-primary hover:text-black transition-colors">
+              <AccordionTrigger className="text-left text-lg font-display font-bold text-white hover:text-primary transition-colors hover:no-underline">
                 {faq.q}
               </AccordionTrigger>
-              <AccordionContent className="text-black font-medium leading-relaxed text-base pt-4 pb-6">
-                <div className="bg-secondary/10 p-4 rounded-lg border-l-4 border-secondary">
-                  {faq.a}
-                </div>
+              <AccordionContent className="text-white/60 font-sans leading-relaxed text-base pt-2 pb-6">
+                {faq.a}
               </AccordionContent>
             </AccordionItem>
           ))}

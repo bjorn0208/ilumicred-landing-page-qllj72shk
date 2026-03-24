@@ -6,39 +6,36 @@ interface LogoProps {
 
 export function Logo({ className }: LogoProps) {
   return (
-    <div
-      className={cn(
-        'flex flex-col items-center justify-center font-display leading-none',
-        className,
-      )}
-    >
-      <div className="relative flex items-end justify-center h-8 mb-1">
+    <div className={cn('flex items-center gap-3', className)}>
+      {/* Fallback SVG icon if src/logo.png is missing. Prompt requested ./src/logo.png placeholder. */}
+      <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-white/10 border border-white/20 backdrop-blur-sm overflow-hidden group">
+        <img
+          src="/src/logo.png"
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover"
+          onError={(e) => {
+            // Hide broken image icon, fallback to SVG
+            e.currentTarget.style.display = 'none'
+          }}
+        />
+        {/* Fallback SVG */}
         <svg
-          viewBox="0 0 100 80"
-          className="w-12 h-10 text-primary"
+          className="w-5 h-5 text-primary group-hover:scale-110 transition-transform"
+          viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
-          strokeWidth="8"
+          strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
         >
-          <path d="M10,40 L10,65 Q50,90 90,65 L90,40" />
-          <path d="M10,40 L50,65 L90,40" />
-          <path d="M10,15 L50,40 L90,15" />
-          <line x1="50" y1="40" x2="50" y2="65" />
-          <circle
-            cx="50"
-            cy="15"
-            r="5"
-            fill="currentColor"
-            className="text-secondary"
-            stroke="none"
-          />
-          <path d="M46,4 Q50,-2 54,4" className="text-secondary" strokeWidth="4" />
+          <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
         </svg>
       </div>
-      <div className="text-2xl font-extrabold tracking-widest text-primary">
-        ILUM<span className="text-secondary bg-primary px-1 rounded-sm mx-[2px]">I</span>CRED
+      <div className="font-display text-xl font-bold tracking-tight text-white flex flex-col leading-none">
+        ILUMICRED
+        <span className="text-[10px] text-primary uppercase tracking-widest font-sans mt-1">
+          Soluções
+        </span>
       </div>
     </div>
   )
